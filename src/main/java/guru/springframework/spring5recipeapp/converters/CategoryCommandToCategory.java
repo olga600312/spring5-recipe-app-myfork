@@ -7,11 +7,13 @@ import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CategoryCommandToCategory implements Converter<CategoryCommand,Category> {
+public class CategoryCommandToCategory implements Converter<CategoryCommand, Category> {
     @Nullable
     @Override
     public Category convert(CategoryCommand categoryCommand) {
-        Category category=new Category();
+        if (categoryCommand == null)
+            return null;
+        Category category = new Category();
         category.setId(categoryCommand.getId());
         category.setDescription(categoryCommand.getDescription());
         return category;
