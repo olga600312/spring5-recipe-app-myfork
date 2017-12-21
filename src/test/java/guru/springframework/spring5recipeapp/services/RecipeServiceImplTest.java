@@ -29,19 +29,19 @@ public class RecipeServiceImplTest {
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        recipeService=new RecipeServiceImpl(recipeRepository, recipeCommandToRecipe, recipeToRecipeCommand);
+        recipeService = new RecipeServiceImpl(recipeRepository, recipeCommandToRecipe, recipeToRecipeCommand);
     }
 
     @Test
     public void getRecipes() throws Exception {
-        Recipe recipe=new Recipe();
-        Set<Recipe> data=new HashSet<>();
+        Recipe recipe = new Recipe();
+        Set<Recipe> data = new HashSet<>();
         data.add(recipe);
         when(recipeService.getRecipes()).thenReturn(data);
 
-        Set<Recipe> recipes=recipeService.getRecipes();
-        assertEquals(1,recipes.size());
-        verify(recipeRepository,times(1)).findAll();
+        Set<Recipe> recipes = recipeService.getRecipes();
+        assertEquals(1, recipes.size());
+        verify(recipeRepository, times(1)).findAll();
     }
 
     @Test
@@ -57,6 +57,18 @@ public class RecipeServiceImplTest {
         assertNotNull("Null recipe returned", recipeReturned);
         verify(recipeRepository, times(1)).findById(anyLong());
         verify(recipeRepository, never()).findAll();
+    }
+
+    @Test
+    public void deleteRecipeByIdTest() throws Exception {
+        //given
+        Long idDelete = 2L;
+
+        //when
+        recipeService.deleteById(idDelete);
+        //then
+        verify(recipeRepository, times(1)).deleteById(anyLong());
+
     }
 
 }
