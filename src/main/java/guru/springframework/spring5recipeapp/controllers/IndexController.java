@@ -16,14 +16,6 @@ import java.util.Optional;
 public class IndexController {
 
     private RecipeService recipeService;
-   /* private CategoryRepository categoryRepository;
-    private UnitOfMeasureRepository unitOfMeasureRepository;
-
-    public IndexController(CategoryRepository categoryRepository, UnitOfMeasureRepository unitOfMeasureRepository) {
-        this.categoryRepository = categoryRepository;
-        this.unitOfMeasureRepository = unitOfMeasureRepository;
-    }*/
-
     public IndexController(RecipeService recipeService) {
         this.recipeService = recipeService;
     }
@@ -32,8 +24,6 @@ public class IndexController {
    //@RequestMapping({"","/","/index"})
     public String getIndexPage(Model model){
         log.debug("Getting Index page");
-        /*Optional<Category>category= categoryRepository.findByDescription("American");
-        Optional<UnitOfMeasure>unitOfMeasure= unitOfMeasureRepository.findByDescription("Teaspoon");*/
         model.addAttribute("recipes",recipeService.getRecipes());
         return "index";
     }
